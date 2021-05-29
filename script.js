@@ -8,7 +8,6 @@ let topLeftCell=document.querySelector('.top-left-cell')
 let rowId="";
 let colId="";
 let address="";
-let db=[];
 let value;
 let row="";
 let col="";
@@ -21,51 +20,87 @@ for(let i=0;i<allCells.length;i++){
         let address = String.fromCharCode(65+colId) + (rowId+1)+"";
         addressInput.value=address;
         let cellObject = db[rowId][colId];
-        // console.log(address);
         formulaInput.value = cellObject.formula;
     })
-
-    
-
 
 
 }    
 
 
-// document.querySelectorAll('.cells').addEventListener('scroll',function(e) {
-//     console.log(e);
-// })
-
-
 
 
 let sheetsdb=[];
-
+let db;
 function initdb(){
     let newDB=[];
+    db=[];
     for(let i=0;i<100;i++){
      let row=[];
-
-   
         for(let j=0;j<26;j++){
          let address=String.fromCharCode(65+j)+(i+1)+"";
          let cellObject={
              name:address,
              value:"",
              formula:"",
-             children:[]
+             children:[],
+             parents:[]
          }
          row.push(cellObject);
         }
-        db.push(row);
-    
+        db.push(row);               //important otherwise it repeats values in other db's
+        newDB.push(row)  
     }
-
-    console.log(db);
+    db=newDB;
+    sheetsdb.push(newDB)
+    console.log(sheetsdb);
    
 }
 
 initdb()
+
+
+// document.querySelector('.cells').addEventListener('scroll',function(e){
+//     let hei=e.offsetY;
+//     let wide=e.offsetX;
+//     topRow.style.top=hei+"px";
+//     leftCol.style.left=wide+"px"
+//     console.log("pp");
+// })
+
+
+
+formulaInput.addEventListener('blur',function(e){
+let formula=formulaInput.value;
+
+if(formula && lastSelectedCell){
+    let r= Number(lastSelectedCell.getAttribute('rowId'))+1
+    let lc=String.fromCharCode(Number(lastSelectedCell.getAttribute('colId'))+65) +r
+   let solvedValue=solvedFormula(formula,lc);
+   let cellObject=db[rowId][colId];
+
+   if(cellObject.formula != formula){    
+    if(cellObject.formula){
+        deleteChild(cellObject);
+    }
+    }
+
+    
+   cellObject.value=solvedValue;
+   cellObject.formula=formula;
+   lastSelectedCell.textContent=solvedValue;
+}
+
+
+
+})
+
+
+
+
+
+
+
+
 
 
 for(let i=0;i<allCells.length;i++){
@@ -77,27 +112,11 @@ for(let i=0;i<allCells.length;i++){
         let cellObject=db[rowId][colId];
          if(value!=cellObject.value){
             cellObject.value=value;
+           deleteChild(cellObject)
             updateChildren(cellObject);
             //console.log(db);
         }
     })
     
 }
-
-formulaInput.addEventListener('blur',function(e){
-let formula=formulaInput.value;
-
-if(formula && lastSelectedCell){
-    let r= Number(lastSelectedCell.getAttribute('rowId'))+1
-let lc=String.fromCharCode(Number(lastSelectedCell.getAttribute('colId'))+65) +r
-   let solvedValue=solvedFormula(formula,lc);
-   let cellObject=db[rowId][colId];
-   cellObject.value=solvedValue;
-   cellObject.formula=formula;
-   lastSelectedCell.textContent=solvedValue;
-}
-
-
-
-})
 

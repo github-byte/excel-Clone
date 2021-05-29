@@ -1,4 +1,5 @@
 
+
 function solvedFormula(formula,lc){
 
     let formulaArr=formula.split(" ");
@@ -13,7 +14,7 @@ function solvedFormula(formula,lc){
 
             if(lc){
                 cellObject.children.push(lc);
-
+                cellObject.parents.push(first);
             }
             //replace a1 with its value
             let value=cellObject.value;
@@ -38,7 +39,7 @@ function updateChildren(cellOb){
         
         //update ui
         document.querySelector(`div[rowId="${rowId}"][colId="${colId}"]`).textContent=val;
-        
+        updateChildren(cellObject);
     }
     ///for each child get row and column id
     //convert it into db element
@@ -52,5 +53,19 @@ function getRowIdColIdFromAddress(formula){
     let rowId=Number(formula.substring(1))-1;
     return {rowId,colId};
 
+}
+
+
+function deleteChild(cellObj) {
+    cellObj.formula="";
+    for(let i=0;i<cellObj.parents;i++){
+        //delete parent 
+        let cell=cellObj.parents[i]
+        let {row,col}=getRowIdColIdFromAddress(cell);
+        let parentCellObj=db[row][col];
+        let filtered=parentCellObj.children.filter(child=>{return child!=cellObj.name});
+        parentCellObj.children=filtered;
+
+    }
 }
 
