@@ -21,7 +21,7 @@ let cellsContent = document.querySelector(".cells-content");
     cellsContentHtml += `<div class="left-col">`
     for(let i=0 ; i<100 ; i++){
     
-        cellsContentHtml += `<div class="left-col-cell">${i+1}</div>`
+        cellsContentHtml += `<div class="left-col-cell"  leftId="${i}">${i+1}</div>`
     }
     cellsContentHtml += `</div>`
     

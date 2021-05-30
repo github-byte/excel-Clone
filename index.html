@@ -7,11 +7,77 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title>Excel Sheet</title>
 </head>
 <body>
     <div class="menu"></div>
-    <div class="menu-options"></div>
+    <div class="menu-options">
+        <div class="font-styling">
+            <div class="bold">
+                <i class="fas fa-bold"></i>
+            </div>
+ 
+            <div class="italic">
+                <i class="fas fa-italic"></i>
+            </div>
+
+            <div class="underline">
+                <i class="fas fa-underline"></i>
+            </div>
+          
+        </div>
+        <div class="font-alignment">
+            <div class="left-align">
+                <i class="fas fa-align-left"></i>
+            </div>
+            <div class="center-align">
+                <i class="fas fa-align-center"></i>
+
+            </div>
+                <div class="right-align">
+                    <i class="fas fa-align-right"></i>
+                </div>
+        </div>
+        <div class="font-family">
+            <select id="font-family">
+                <option>Roboto</option>
+                <option>Ariel</option>
+                <option>Comic Sans</option>
+                <option>Lucida Sans</option>
+                <option>Times New Roman</option>
+            </select>
+        </div>
+        <div class="font-size">
+            <select id="font-size">
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>20</option>
+                <option>30</option>
+                <option>50</option>
+    
+            </select>
+        </div>
+        
+        <div class="font-color">
+            <div>
+            <i class="fas fa-font"></i>
+            </div>
+            <div>
+                <input type="color" name="" id="fontColor">
+                </div>
+    </div>
+        <div class="font-bgcolor">
+            <i class="fas fa-fill-drip">
+                
+                <input type="color" name="" id="bgcolor">
+            </i>
+            </div>
+        </div>
+    </div>
+ 
     <div class="calculation">
         <input type="text" id="address" disabled>
         <input id="formula"/>
@@ -30,6 +96,7 @@
     <script src="./util.js"></script>
     <script src="./sheets.js"></script>
     <script src="./script.js"></script>
+    <script src="./menu.js"></script>
 </body>
 </html>
 

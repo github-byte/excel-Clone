@@ -21,8 +21,14 @@ for(let i=0;i<allCells.length;i++){
         addressInput.value=address;
         let cellObject = db[rowId][colId];
         formulaInput.value = cellObject.formula;
+        setMenu();
     })
-
+    allCells[i].addEventListener('keyup',function(e){
+        height=e.target.getBoundingClientRect().height;
+        rowId=e.target.getAttribute('rowid');
+        leftCol=document.querySelector(`div[leftId="${rowId}"]`);
+        leftCol.style.height=height+"px";
+    })
 
 }    
 
@@ -43,7 +49,9 @@ function initdb(){
              value:"",
              formula:"",
              children:[],
-             parents:[]
+             parents:[],
+             fontstyle:{bold:false,underline:false,italic:false},
+             textAlign:"left"
          }
          row.push(cellObject);
         }
@@ -89,18 +97,7 @@ if(formula && lastSelectedCell){
    cellObject.formula=formula;
    lastSelectedCell.textContent=solvedValue;
 }
-
-
-
 })
-
-
-
-
-
-
-
-
 
 
 for(let i=0;i<allCells.length;i++){

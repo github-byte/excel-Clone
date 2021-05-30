@@ -19,7 +19,7 @@ function handleAddSheet(){
     initdb();
  
     initUI();
-    
+    setMenu()
 }
 
 
@@ -36,9 +36,6 @@ function handleSwitch(e) {
 
     //db updated
     db=sheetsdb[sheetClicked.getAttribute('sid')]
-   console.log(db
-    
-)
    //display
    setUI(); 
 
@@ -48,15 +45,46 @@ function handleSwitch(e) {
 function initUI(){
     for(let i=0;i<allCells.length;i++){
         allCells[i].textContent="";
+        allCells[i].style=""
     }
 }
 
+function initMenu(){
+    bold.classList.remove('active-menu')
+    italic.classList.remove('active-menu')
+    underline.classList.remove('active-menu')
+    leftAlign.classList.remove('active-menu')
+    centerAlign.classList.remove('active-menu')
+    rightAlign.classList.remove('active-menu')
+}
 
 function setUI() {
    for(let i=0;i<allCells.length;i++){
        let r=allCells[i].getAttribute('rowid');
        let c=allCells[i].getAttribute('colid');
-       allCells[i].textContent=db[r][c].value;
+       let cellObject = db[r][c];
+       allCells[i].textContent = cellObject.value;
+       allCells[i].style.fontWeight = cellObject.fontstyle.bold ? "bold" : "normal";
+       allCells[i].style.fontStyle = cellObject.fontstyle.italic ? "italic":"normal"; 
+       allCells[i].style.textDecoration = cellObject.fontstyle.textDecoration ? "underline":"none";
+       allCells[i].style.textAlign = cellObject.textAlign;
 
    }
 }
+
+// function setMenu(){
+//     console.log("nsbsbsbs");
+//     for(let i=0;i<allCells.length;i++){
+//         let r=allCells[i].getAttribute('rowid');
+//         let c=allCells[i].getAttribute('colid');
+//         console.log(allCells[i]+"db value"+db[r][c].textAlign);
+//         console.log(allCells[i]+"db value"+db[r][c].bold);
+//         console.log(allCells[i]+"db value"+db[r][c].italic);
+//         allCells[i].style.textAlign=db[r][c].textAlign;
+//         allCells[i].style.fontWeight=db[r][c].fontstyle.bold?'bold':'normal';
+//         allCells[i].style.fontStyle=db[r][c].fontsyle.italic?'italic':'normal';
+//         allCells[i].style.textDecoration=db[r][c].fontsyle.underline?'underline':""
+//     }
+
+
+// }
